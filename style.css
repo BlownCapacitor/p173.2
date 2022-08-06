@@ -1,0 +1,16 @@
+button {
+  width:150px;
+}
+
+#button-div {
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 10px;
+  width:100%;
+  z-index: 1;
+  border: 2px soild black;
+}
+
+

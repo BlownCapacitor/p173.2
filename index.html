@@ -1,0 +1,134 @@
+<!--Mandatory Licsence Declarations:-->
+<!--"Maintenance vehicles" (https://skfb.ly/ov8UE) by OndyRen is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+<!--"Rubik's Cube" (https://skfb.ly/6U9En) by EwanLejkowski is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AR toy store</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+ 
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
+  <link href="./style.css" rel="stylesheet" />
+  <script src="./js/addButtons.js"></script>
+  <script src="./js/markerHandler.js"></script>
+  <script src="./js/addMarkers.js"></script>
+  <script src="./js/star.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyA8uAqtfsgfmR4zBSsrpEXHSA0fpBumdVw",
+      authDomain: "toyscatalog-c7e73.firebaseapp.com",
+      projectId: "toyscatalog-c7e73",
+      storageBucket: "toyscatalog-c7e73.appspot.com",
+      messagingSenderId: "407795778789",
+      appId: "1:407795778789:web:7888da0f146e273cfc800c"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+</head>
+
+<body style="margin : 0px; overflow: hidden;">
+  <a-scene id="main-scene" vr-mode-ui="enabled: false" embedded
+  arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;debugUIEnabled: false;"
+  gesture-detector create-markers create-button>
+
+  <a-entity camera></a-entity>
+</a-scene>
+<div id="button-div" class="fixed-bottom"></div>
+
+<div class="container">
+  <div id="modal-div" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Summary</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <td><strong>Item</strong></td>
+                  <td class="text-center"><strong>Price</strong></td>
+                  <td class="text-center"><strong>Quantity</strong></td>
+                  <td class="text-right"><strong>Total</strong></td>
+                </tr>
+              </thead>
+              <tbody id="bill-table-body">
+                <!--Code Added through inner Html in markerHandler-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="pay-button" type="button" class="btn btn-primary">
+            Pay Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div id="rating-div" class="rating-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Rating Panel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeRating()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+           
+            <textarea class="form-control" id="feedback" rows="3"></textarea>
+            <input id="rating" name="rating" class="rating rating-loading" data-min="1" data-max="10"
+              data-step="0.5" value="0" />
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="save-rating-button" type="button" class="btn btn-primary">
+            Submit Rating
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeModal() {
+    document.getElementById("modal-div").style.display = "none";
+  }
+</script>
+<script>
+  function closeRating() {
+    document.getElementById("rating-div").style.display = "none";
+  }
+
+  </script>
+
+</body>
+
+</html>
